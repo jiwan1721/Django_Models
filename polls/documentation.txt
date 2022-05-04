@@ -1,0 +1,106 @@
+step1 : create folder
+step2 : open cmd terminal
+step3 : type [ code . ]  ----------------- ( it will open the vs code)
+step4 : open terminal of vs code
+step5 : create virtual environment->
+        1. python -m venv env  ---------------  [it will create virtual enviroment]
+        2. source env/bin/activaye  -----------[it will activate virtual environment]
+        [----now we are inside the virtual environment-----]
+step6 : install django inside virtual environment
+    [-----pip install django-----]
+step7 : create project
+    [-----django-admin startproject poll-----]
+step8 : go inside poll
+    [-----cd poll-----]
+step9: create project 
+    [-----django-admin startapp sambho-----]
+step10: create usrl.py inside sambho folder
+        [----it will help us to map views.py function-----]
+        1. we have to map urls.py to poll url.py
+            
+            from django.urls import include ,path
+            path('polls/', include('poll.url))
+            note : if we give name of url we have to type in that name in webapp
+
+
+step12: tye some code in views.py by defining function named index
+            1. from djnago.http import httpresponse [it will help us to return the value to server]
+            
+            
+            def index(request):      [we have to give 'request' argunment inside every function we define]
+            return httpresponse("hello from the other side")
+
+            2. we need map index function inside sambho/urls.py
+                from django.urls import path
+                from . import views  [----we have to import views.py folder inside url folde----]
+                path('in here we define url name', views.index, name="index"),
+
+step13: map the created app in setting.py folder inside
+        installed_app [
+
+        ]
+
+
+NOW in models.py:
+this folder is used to create tables filds in database
+
+step1 :
+    we create class and difine fields
+        class Question(models.Model):
+            question_text = models.CharField(max_length=200)
+            pub_date = models.DateTimeField('date published')
+        class Choice(models.Model):
+            question = models.ForeignKey(Question, on_delete=models.CASCADE)
+            choice_text = models.CharField(max_length=200)
+            votes = models.IntegerField(default=0)
+        Finally, note a relationship is defined, using ForeignKey. 
+        That tells Django each Choice is related to a single Question. Django 
+        supports all the common database relationships: many-to-one, many-to-many,
+        and one-to-one.
+    To include the app in our project,
+    we need to add a reference to its configuration class in the INSTALLED_APPS setting.
+step2:
+    python manage.py makemigrations sambho(app name)
+    python manage.py migrate
+step3: we have to make return function in every class
+    def __str__(self):
+        return self.question_text
+    def __str__(self): #__str__ is required
+        return self.option_text 
+step4:
+    create superuser admin
+    python manage.py createsuperuser
+step5:
+    after this we have to add model class into admin.py
+    1. import models class
+        from .models import Quize,Option
+    2. write code to add model class in admin.py or register class
+        admin.site.register(Quize)
+        admin.site.register(Option)
+
+
+
+Adding more function in view:
+    def details(request,question_id):
+        return HttpResponse("you are looking at the question %s." % question_id)
+    def results(request,question_id):
+        response = "you are lookin at the results of the question"
+        return HttpResponse(response%question_id)
+    def vote(request,question_id):
+        return HttpResponse("you are voting in question %s" % question_id)
+after this we have to map functions in url.py
+
+
+
+NOW, we use model.py values in views.py
+        To do that we have to import models.py in views.py
+        from .models import Quize
+
+
+NOW, we have to create template folder inside sambho folder
+    then, create sambho folder inside 
+    then create index.html folder
+        type code in index.html
+
+THEN, import template laoder in views.py to load html file
+        from django.template.loader import get_template

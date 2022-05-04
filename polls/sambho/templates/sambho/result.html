@@ -1,0 +1,9 @@
+<h1>{{quiz.question_area}}</h1>
+<ul>
+    {% for question in quiz.option_set.all %}
+    <li>
+        {{question.option_text}} -- {{question.vote_count}} vote {{x.vote_count|pluralize}}
+    </li>
+    {%endfor%}
+</ul>
+<a href="{% url 'sambho:details' quize.id %}">vote garne ho pheri</a>

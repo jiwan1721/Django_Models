@@ -1,0 +1,29 @@
+<h1>this is detail page</h1>
+{{options}}
+<p> {{ question.question_area }} </p>
+<form action = "{% url 'sambho:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend>
+            <h1>
+                {{question.question_area}}
+            </h1>
+            {% if error_message %}
+        <p>
+            <strong>
+                {{error_message}}
+            </strong>
+        </p>
+        
+            
+        </legend>
+         
+        {%endif%}
+    </fieldset>
+</form>
+
+{% for option in options %}
+    <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{option.id}}">
+    <label for="choice{{forloop.counter}}">{{option.option_text}}</label><br>
+{% endfor %}
+<input type="submit" value="Vote">

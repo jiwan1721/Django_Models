@@ -1,0 +1,21 @@
+from django.contrib import admin
+from .models import *
+# Register your models here.
+admin.site.register(Quize)
+admin.site.register(Option)
+admin.site.register(Colors)
+admin.site.register(People)
+admin.site.register(PeopleAddress)
+admin.site.register(Person)
+admin.site.register(Runner)
+admin.site.register(Fruit)
+admin.site.register(VerbosExample)
+admin.site.register(ManyToManyField_Test)
+admin.site.register(Person_many)
+admin.site.register(Group)
+admin.site.register(Membership)
+admin.site.register(ox)
+admin.site.register(Baby)
+admin.site.register(Student)
+admin.site.register(Place)
+admin.site.register(Resturant)
